@@ -2,6 +2,7 @@ import { prisma } from "../config/prisma";
 import { CreateCategoryDto } from "../dtos/create-category.dto";
 
 type CreateCategoryData = CreateCategoryDto & { slug: string };
+type UpdateCategoryData = Partial<CreateCategoryDto> & { slug?: string };
 
 export const categoryRepository = {
     create(data: CreateCategoryData) {
@@ -37,7 +38,7 @@ export const categoryRepository = {
         return prisma.category.findUnique({ where: { id } });
     },
 
-    updateById(id: string, data: Partial<CreateCategoryDto>) {
+    updateById(id: string, data: UpdateCategoryData) {
         return prisma.category.update({ where: { id }, data });
     },
 
