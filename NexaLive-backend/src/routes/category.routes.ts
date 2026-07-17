@@ -6,5 +6,7 @@ export const categoryRouter = Router();
 categoryRouter.post("/", categoryController.create);
 categoryRouter.delete("/:id", categoryController.deleteById);
 categoryRouter.put("/:id", categoryController.updateById);
+categoryRouter.patch("/:id", categoryController.updateById);
 categoryRouter.get("/search", categoryController.search);
+categoryRouter.get("/", categoryController.findAll);
 categoryRouter.get("/slug/:slug", categoryController.findBySlug);

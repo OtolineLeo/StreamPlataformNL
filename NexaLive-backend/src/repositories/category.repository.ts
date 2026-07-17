@@ -38,6 +38,11 @@ export const categoryRepository = {
         return prisma.category.findUnique({ where: { id } });
     },
 
+    // PARA ENCONTRAR TUDO E TODOS
+    findAll() {
+        return prisma.category.findMany();
+    },
+
     updateById(id: string, data: UpdateCategoryData) {
         return prisma.category.update({ where: { id }, data });
     },

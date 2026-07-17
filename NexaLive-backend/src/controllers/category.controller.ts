@@ -52,6 +52,12 @@ export const categoryController = {
         return res.status(200).json(category);
     },
 
+    // APENAS PARA USO INTERNO, PARA ENCONTRAR TODAS AS CATEGORIAS
+    async findAll(req: Request, res: Response) {
+        const categories = await categoryService.findAll();
+        return res.status(200).json(categories);
+    },
+
     // USADO EXTERNO PARA ENCONTRAR UMA CATEGORIA PELO SLUG
     async findBySlug(req: Request, res: Response) {
         const {slug} = req.params;

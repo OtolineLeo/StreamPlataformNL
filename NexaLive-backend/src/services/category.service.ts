@@ -76,6 +76,12 @@ export const categoryService = {
         return category;
     },
 
+    // BUSCA TUDO E TODAS AS CATEGORIAS
+    async findAll() {
+        const categories = await categoryRepository.findAll();
+        return categories;
+    },
+
     // BUSCA UMA CATEGORIA PELO SLUG, VERIFICANDO SE A CATEGORIA EXISTE
     async findBySlug(slug: string) {
         const category = await categoryRepository.findBySlug(slug);
