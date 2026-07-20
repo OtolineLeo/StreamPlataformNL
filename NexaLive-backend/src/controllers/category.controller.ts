@@ -1,9 +1,12 @@
 import { Request, Response } from "express";
 import { categoryService } from "../services/category.service";
+import { createCategorySchema } from "../dtos/create-category.dto";
 
 export const categoryController = {
+    
     async create(req: Request, res: Response) {
-        const category = await categoryService.create(req.body);
+        const data = createCategorySchema.parse(req.body);
+        const category = await categoryService.create(data);
         return res.status(201).json(category);
     },
 

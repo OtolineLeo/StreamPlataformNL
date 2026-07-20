@@ -4,9 +4,22 @@ import { CreateCategoryDto } from "../dtos/create-category.dto";
 type CreateCategoryData = CreateCategoryDto & { slug: string };
 type UpdateCategoryData = Partial<CreateCategoryDto> & { slug?: string };
 
+// FUNÇÃO PARA REMOVER AUTOMATICAMENTE QUALQUER CHAVE QUE SEJA UNDEFINED
+function removeUndefined<T extends object>(obj: T): T {
+    return Object.fromEntries(
+        Object.entries(obj).filter(([, value]) => value !== undefined)
+    ) as T;
+}
+
 export const categoryRepository = {
     create(data: CreateCategoryData) {
-        return prisma.category.create({ data });
+        return prisma.category.create({ data: {
+            name: data.name,
+            coverUrl: data.coverUrl,
+            slug: data.slug,
+            ...(data.description !== undefined && {description: data.description})
+        },
+      });
     },
 
     //AMIGAVEL PARA O USUARIO, PARA ENCONTRAR CATEGORIA PELO SLUG, CONSIDERANDO MUDAR OU ADICIONAR NOME
@@ -44,7 +57,10 @@ export const categoryRepository = {
     },
 
     updateById(id: string, data: UpdateCategoryData) {
-        return prisma.category.update({ where: { id }, data });
+        return prisma.category.update({
+            where: {id},
+            data: removeUndefined(data),
+        });
     },
 
     deleteById(id: string) {
