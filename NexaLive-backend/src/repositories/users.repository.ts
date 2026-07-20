@@ -1,9 +1,12 @@
 import { prisma } from "../config/prisma";
-import { CreateUserDto } from "../dtos/users.dto";
+import { CreateUserDto } from "../dtos/create-users.dto";
 
-type CreateUserData = CreateUserDto;
+type CreateUserData = Omit<CreateUserDto, "password"> & { passwordHash: string };
 
 export const usersRepository = {
+    create(data: CreateUserData) {
+        return prisma.user.create({ data })
+    },
     
     // PARA UM USUARIO ENCONTRAR OUTRO USUARIO
 
@@ -26,6 +29,10 @@ export const usersRepository = {
 
     // PARA ENCONTRAR CONSULTAS INTERNAS
 
+    findbyEmail(email: string) {
+        return prisma.user.findUnique({ where: {email} });
+    },
+
     findbyId(id: string) {
         return prisma.user.findUnique({ where: {id} });
     },
@@ -36,7 +43,7 @@ export const usersRepository = {
 
     // NÃO SEI SE FICARÁ AQUI
 
-    updatebyId(id: string, data: CreateUserData) {
+    updatebyId(id: string, data: Partial<CreateUserData>) {
         return prisma.user.update({ where: {id}, data });
     },
 

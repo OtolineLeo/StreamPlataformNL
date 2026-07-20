@@ -19,8 +19,8 @@ model User {
   username String @unique
   email String @unique
   passwordHash String
-  avatarUrl String?
-  bio String?
+  avatarUrl String @default("https://pixabay.com/pt/vectors/do-utilizador-%C3%ADcone-pessoa-pessoal-2935527/")
+  bio String @default("Este usuário ainda não escreveu sua biografia")
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
