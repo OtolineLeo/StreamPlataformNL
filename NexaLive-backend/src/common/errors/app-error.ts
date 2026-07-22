@@ -22,9 +22,9 @@ export class NotFoundError extends AppError {
     }
 }
 
-// export class UnauthorizedError extends AppError {
-//     constructor(message: string = "Unauthorized") {
-//         super(message, 401);
-//         this.name = "UnauthorizedError";
-//     }
-// }
+export class UnauthorizedError extends AppError {
+    constructor(message: string = "Unauthorized") {
+        super(message, 401);
+        this.name = "UnauthorizedError";
+    }
+}

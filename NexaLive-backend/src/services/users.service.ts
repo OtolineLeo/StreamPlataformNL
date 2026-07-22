@@ -5,7 +5,7 @@ import bcrypt from "bcryptjs";
 
 export type UpdateUserDto = Partial<Omit<CreateUserDto, "password">>;
 
-function toPublicUser<T extends { passwordHash: string }>(user:T){
+export function toPublicUser<T extends { passwordHash: string }>(user:T){
     const {passwordHash, ...publicUser} = user;
     return publicUser;
 }
