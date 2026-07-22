@@ -10,7 +10,7 @@ export const usersRepository = {
     
     // PARA UM USUARIO ENCONTRAR OUTRO USUARIO
 
-    findbyName(username: string) {
+    findByName(username: string) {
         return prisma.user.findUnique({ where: {username}});
     },
 
@@ -29,11 +29,11 @@ export const usersRepository = {
 
     // PARA ENCONTRAR CONSULTAS INTERNAS
 
-    findbyEmail(email: string) {
+    findByEmail(email: string) {
         return prisma.user.findUnique({ where: {email} });
     },
 
-    findbyId(id: string) {
+    findById(id: string) {
         return prisma.user.findUnique({ where: {id} });
     },
 
@@ -43,11 +43,11 @@ export const usersRepository = {
 
     // NÃO SEI SE FICARÁ AQUI
 
-    updatebyId(id: string, data: Partial<CreateUserData>) {
+    updateById(id: string, data: Partial<CreateUserData>) {
         return prisma.user.update({ where: {id}, data });
     },
 
-    deletebyId(id: string) {
+    deleteById(id: string) {
         return prisma.user.delete({ where: {id}});
     }
 
