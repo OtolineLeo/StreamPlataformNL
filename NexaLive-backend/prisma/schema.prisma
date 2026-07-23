@@ -25,6 +25,7 @@ model User {
   updatedAt DateTime @updatedAt
 
   streams Stream[]
+  refreshTokens RefreshToken[]
 
   following Follow[] @relation("FollowerRelation")
   followers Follow[] @relation("FollowingRelation")
@@ -66,4 +67,13 @@ model Follow {
 
   followingId String
   followingUser User @relation("FollowingRelation", fields: [followingId], references: [id])
+}
+
+model RefreshToken {
+  id String @id @default(uuid())
+  token String @unique
+  expiresAt DateTime
+  createdAt DateTime @default(now())
+  userId String
+  user User @relation(fields: [userId], references: [id])
 }
