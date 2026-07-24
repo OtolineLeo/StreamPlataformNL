@@ -19,6 +19,10 @@ export const usersController = {
             return res.status(400).json({message: "ID is required."});
         }
 
+        if(req.userId !== id){
+            return res.status(403).json({ message: "Você só pode alterar o seu proprio perfil."})
+        }
+
         const deletedUsers = await usersService.deleteById(id);
         return res.status(200).json(deletedUsers);
     },
@@ -28,6 +32,10 @@ export const usersController = {
 
         if(!id || typeof id !== 'string') {
             return res.status(400).json({ message: "ID is required."});
+        }
+
+        if(req.userId !== id){
+            return res.status(403).json({ message: "Você só pode alterar seu proprio perfil."});
         }
 
         const data = updateUserSchema.parse(req.body)
