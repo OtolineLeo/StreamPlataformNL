@@ -70,5 +70,9 @@ export const authService = {
         const accessToken = generateAccessToken(storedToken.userId);
 
         return { accessToken };
-    }
+    },
+
+    async logout(refreshToken: string){
+        await refreshTokenRepository.deleteByToken(refreshToken);
+    },
 };
