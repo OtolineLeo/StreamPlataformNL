@@ -12,7 +12,7 @@ function generateAccessToken(userId: string): string {
     return jwt.sign(
         { sub: userId },
         process.env.JWT_SECRET as string,
-        { expiresIn: "15m" }
+        { expiresIn: "15m" } // OS MINUTOS PARA EXPIRAR O TOKEN DE ACESSO
     );
 }
 

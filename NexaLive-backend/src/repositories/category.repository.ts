@@ -4,6 +4,13 @@ import { CreateCategoryDto } from "../dtos/create-category.dto";
 type CreateCategoryData = CreateCategoryDto & { slug: string };
 type UpdateCategoryData = Partial<CreateCategoryDto> & { slug?: string };
 
+type UpsertCategoryData = {
+    name: string;
+    slug: string;
+    coverUrl: string;
+    description?: string;
+};
+
 // FUNÇÃO PARA REMOVER AUTOMATICAMENTE QUALQUER CHAVE QUE SEJA UNDEFINED
 function removeUndefined<T extends object>(obj: T): T {
     return Object.fromEntries(
@@ -65,5 +72,23 @@ export const categoryRepository = {
 
     deleteById(id: string) {
         return prisma.category.delete({ where: { id } });
-    }
+    },
+
+    upsertBySlug(data: UpsertCategoryData) {
+        return prisma.category.upsert({
+            where: { slug: data.slug },
+            update: {
+                name: data.name,
+                coverUrl: data.coverUrl,
+                description: data.description,
+            },
+            create: {
+                name: data.name,
+                slug: data.slug,
+                coverUrl: data.coverUrl,
+                description: data.description,
+            },
+        });
+    },
+
 };

@@ -1,6 +1,7 @@
 import { categoryRepository } from "../repositories/category.repository";
 import { CreateCategoryDto } from "../dtos/create-category.dto";
 import { ConflictError, NotFoundError } from "../common/errors/app-error";
+import { fetchGames } from "../integrations/idgb.service";
 
 // GERA O SLUG A PARTIR DO NOME DA CATEGORIA, REMOVENDO ACENTOS E CARACTERES ESPECIAIS, E SUBSTITUINDO ESPAÇOS POR HÍFENS
 function generateSlug(name: string): string {
@@ -89,5 +90,24 @@ export const categoryService = {
             throw new NotFoundError("Resource not found or does not exist.");
         }
         return category;
-    }
-}
+    },
+
+    // função para puxar da idgb
+    async syncFromIgdb() {
+        const games = await fetchGames(30);
+
+        for(const game of games) {
+            await categoryRepository.upsertBySlug({
+                name: game.name,
+                slug: game.slug,
+                coverUrl: game.cover
+                    ? `https:${game.cover.url.replace("t_thumb", "t_cover_big")}`
+                    : "https://via.placeholder.com/300x400?text=No+Cover",
+                description: game.summary,
+            });
+        }
+
+    return { synced: games.length };
+    
+    },
+};
