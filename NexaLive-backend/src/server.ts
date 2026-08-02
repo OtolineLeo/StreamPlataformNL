@@ -1,8 +1,11 @@
 import "dotenv/config";
 import { app } from "./app";
+import { scheduleCategorySyncJob } from "./jobs/sync-category.job";
+
 
 const PORT = process.env.PORT || 3000;
 
 app.listen(PORT, () => {
     console.log(`Server is running on port ${PORT}`);
+    scheduleCategorySyncJob();
 });
