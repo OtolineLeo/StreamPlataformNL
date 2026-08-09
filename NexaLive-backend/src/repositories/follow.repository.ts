@@ -19,7 +19,16 @@ export const followRepository = {
 
     findFollowing(userId: string){
         return prisma.follow.findMany({
-            where: { followerId: userId }
+            where: { followerId: userId },
+            include: {
+                followingUser: {
+                    select: {
+                        id: true,
+                        username: true,
+                        avatarUrl: true,
+                    },
+                },
+            },
         });
     },
 
@@ -31,7 +40,16 @@ export const followRepository = {
 
     findFollowers(userId: string) {
         return prisma.follow.findMany({
-            where: { followingId: userId }
+            where: { followingId: userId },
+            include: {
+                follower: {
+                    select: {
+                        id: true,
+                        username: true,
+                        avatarUrl: true,
+                    },
+                },
+            },
         });
     },
 
