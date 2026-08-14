@@ -3,4 +3,39 @@
     justify-content: center;
     align-items: center;
     min-height: 100vh;
+    background-color: #0e0e10;
+}
+
+.form {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    width: 100%;
+    max-width: 360px;
+    padding: 2rem;
+    background-color: #18181b;
+    border-radius: 8px;
+}
+
+.input {
+    padding: 0.75rem;
+    border-radius: 4px;
+    border: 1px solid #3a3a3d;
+    background-color: #0e0e10;
+    color: white;
+}
+
+.button {
+    padding: 0.75rem;
+    border-radius: 4px;
+    background-color: #9147ff;
+    color: white;
+    font-weight: bold;
+    border: none;
+    cursor: pointer;
+}
+
+.error {
+    color: #ff3535;
+    font-size: 0.875rem;
 }

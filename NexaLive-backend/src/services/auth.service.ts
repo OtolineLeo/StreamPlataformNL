@@ -34,16 +34,16 @@ export const authService = {
     async login(data: LoginDto){
 
         // BUSCA USUARIO, SE NÃO ACHAR RETORNA O ERRO.
-        const user = await usersRepository.findByEmail(data.email);
+        const user = await usersRepository.findByName(data.username);
 
         if(!user){
-            throw new UnauthorizedError("Email ou senha invalidos.");
+            throw new UnauthorizedError("Username ou senha invalidos.");
         }
 
         const passwordMatches = await bcrypt.compare(data.password, user.passwordHash);
 
         if(!passwordMatches) {
-            throw new UnauthorizedError("Email ou senha invalidos.");
+            throw new UnauthorizedError("Username ou senha invalidos.");
         }
 
         const accessToken = generateAccessToken(user.id);
