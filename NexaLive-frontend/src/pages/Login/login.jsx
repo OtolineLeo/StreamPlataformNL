@@ -4,7 +4,7 @@ import { useAuth } from "../../context/AuthContext";
 import styles from "./login.module.css";
 
 function Login(){
-    const [ username, setUsername ] = useState("");
+    const [ identifier, setIdentifier ] = useState("");
     const [ password, setPassword ] = useState("");
     const [ error, setError ] = useState("");
 
@@ -16,10 +16,10 @@ function Login(){
         setError("");
 
         try{
-            await login(username, password);
+            await login(identifier, password);
             navigate("/");
         } catch(err) {
-            setError("Usuario ou senha invalidos.");
+            setError("Usuario/email ou senha invalidos.");
         }
     }
 
@@ -33,9 +33,9 @@ function Login(){
                 <input
                     className={styles.input}
                     type="text"
-                    placeholder="Usuário"
-                    value={username}
-                    onChange={(e) => setUsername(e.target.value)}
+                    placeholder="Usuário ou email"
+                    value={identifier}
+                    onChange={(e) => setIdentifier(e.target.value)}
                 />
 
                 <input

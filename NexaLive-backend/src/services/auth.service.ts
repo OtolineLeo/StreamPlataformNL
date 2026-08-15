@@ -34,7 +34,10 @@ export const authService = {
     async login(data: LoginDto){
 
         // BUSCA USUARIO, SE NÃO ACHAR RETORNA O ERRO.
-        const user = await usersRepository.findByName(data.username);
+        const isEmail = data.identifier.includes("@");
+
+        const user = isEmail ? await usersRepository.findByEmail(data.identifier)
+        : await usersRepository.findByName(data.identifier);
 
         if(!user){
             throw new UnauthorizedError("Username ou senha invalidos.");
