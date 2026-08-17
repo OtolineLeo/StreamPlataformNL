@@ -2,6 +2,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Navbar from "./components/navbar/Navbar";
 import Login from "./pages/Login/login";
 import Home from "./pages/Home/home";
+import Categories from "./pages/Categories/Categories";
 import Register from "./pages/register/register";
 import { AuthProvider } from "./context/AuthContext";
 import GuestRoute from "./components/GuestRoute";
@@ -29,6 +30,8 @@ function App() {
                           </GuestRoute>
                         }
                        />  
+
+                       <Route path="/categories" element={<Categories/>}/>
                           
                     </Routes>
                   </main>

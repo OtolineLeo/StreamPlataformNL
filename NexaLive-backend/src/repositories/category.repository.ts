@@ -59,8 +59,10 @@ export const categoryRepository = {
     },
 
     // PARA ENCONTRAR TUDO E TODOS
-    findAll() {
-        return prisma.category.findMany();
+    findAll(limit?: number) {
+        return prisma.category.findMany({
+            take: limit,
+        });
     },
 
     updateById(id: string, data: UpdateCategoryData) {

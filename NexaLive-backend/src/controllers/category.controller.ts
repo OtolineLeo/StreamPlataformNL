@@ -57,7 +57,10 @@ export const categoryController = {
 
     // APENAS PARA USO INTERNO, PARA ENCONTRAR TODAS AS CATEGORIAS
     async findAll(req: Request, res: Response) {
-        const categories = await categoryService.findAll();
+        const { limit } = req.query;
+        const parsedLimit = limit ? Number(limit) : undefined;
+
+        const categories = await categoryService.findAll(parsedLimit);
         return res.status(200).json(categories);
     },
 

@@ -1,0 +1,22 @@
+.card {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.cover{
+    width: 100%;
+    aspect-ratio: 3/4;
+    object-fit: cover;
+    border-radius: 8px;
+    background-color: #1f1f23;
+}
+
+.name{
+    color: white;
+    font-size: 0.9rem;
+    font-weight: 600;
+    margin: 0;
+}

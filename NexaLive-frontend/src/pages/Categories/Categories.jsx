@@ -1,15 +1,14 @@
 import { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
 import { api } from "../../services/api";
 import CategoryCard from "../../components/CategoryCard/CategoryCard";
-import styles from "../Home/home.module.css";
+import styles from "../../pages/Categories/Categories.module.css";
 
-function Home(){
-    const [categories, setCategories ] = useState([]);
-    const [loading, setLoading] = useState(true);
+function Categories(){
+    const [categories, setCategories] = useState([]);
+    const [loading, setLoading] = useState(false);
 
     useEffect(() => {
-        api.get("/categories?limit=5").then((response) => {
+        api.get("/categories").then((Response) => {
             setCategories(response.data);
             setLoading(false);
         });
@@ -17,19 +16,14 @@ function Home(){
 
     return(
         <div className={styles.container}>
-            <div className={styles.header}>
-                <h2 className={styles.title}>Categorias</h2>
-                <Link to="/categories" className={styles.seeAll}>
-                    Ver mais categorias
-                </Link>
-            </div>
+            <h2 className={styles.title}>Todas as Categorias</h2>
 
             {loading ? (
                 <p className="text-white">Carregando...</p>
             ):(
                 <div className={styles.grid}>
                     {categories.map((category) => (
-                        <CategoryCard key={category.id} category={category} />
+                        <CategoryCard key={category.id} category={category}/>
                     ))}
                 </div>
             )}
@@ -37,4 +31,4 @@ function Home(){
     );
 }
 
-export default Home;
+export default Categories;

@@ -14,16 +14,3 @@
     grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
     gap: 1.5rem;
 }
-
-.header{
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 1rem;
-}
-
-.seeAll{
-    color: #a970ff;
-    font-size: 0.9rem;
-    text-decoration: none;
-}

@@ -78,8 +78,8 @@ export const categoryService = {
     },
 
     // BUSCA TUDO E TODAS AS CATEGORIAS
-    async findAll() {
-        const categories = await categoryRepository.findAll();
+    async findAll(limit?: number) {
+        const categories = await categoryRepository.findAll(limit);
         return categories;
     },
 
