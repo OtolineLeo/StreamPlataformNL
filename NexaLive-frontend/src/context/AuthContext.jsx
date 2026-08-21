@@ -14,21 +14,19 @@ export function AuthProvider({children}){
     }, []);
 
     async function restoreSession(){
-        const refreshToken = localStorage.getItem("refreshToken");
         const savedUser = localStorage.getItem("user");
 
-        if(!refreshToken || !savedUser ){
+        if(!savedUser ){
             setLoading(false);
             return;
         }
 
         try{
-            const response = await api.post("/auth/refresh", {refreshToken});
+            const response = await api.post("/auth/refresh");
             setAccessToken(response.data.accessToken);
             saveTokenGlobally(response.data.accessToken);
             setUser(JSON.parse(savedUser));
         } catch(err) {
-            localStorage.removeItem("refreshToken");
             localStorage.removeItem("user");
 
             //finally para sempre rodar independente do 0 e 1
@@ -44,15 +42,15 @@ export function AuthProvider({children}){
         setUser(response.data.user);
         setAccessToken(response.data.accessToken);
         saveTokenGlobally(response.data.accessToken);
-        localStorage.setItem("refreshToken", response.data.refreshToken);
         localStorage.setItem("user", JSON.stringify(response.data.user));
     }
 
-    function logout(){
+    async function logout(){
+        await api.post("/auth/logout");
+
         setUser(null);
         setAccessToken(null);
         saveTokenGlobally(null);
-        localStorage.removeItem("refreshToken");
         localStorage.removeItem("user");
     }
 

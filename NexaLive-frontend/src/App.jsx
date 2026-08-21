@@ -6,6 +6,7 @@ import Categories from "./pages/Categories/Categories";
 import Register from "./pages/register/register";
 import { AuthProvider } from "./context/AuthContext";
 import GuestRoute from "./components/GuestRoute";
+import CategoryDetail from "./pages/CategoryDetail/CategoryDetail";
 
 function App() {
     return (
@@ -31,8 +32,10 @@ function App() {
                         }
                        />  
 
-                       <Route path="/categories" element={<Categories/>}/>
+                      <Route path="/categories" element={<Categories/>}/>
                           
+                      <Route path="/categories/:slug" element={<CategoryDetail />} />
+
                     </Routes>
                   </main>
                 </div>
